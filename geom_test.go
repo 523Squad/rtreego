@@ -29,10 +29,10 @@ func TestNewRect(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error on NewRect(%v, %v): %v", p, lengths, err)
 	}
-	if d := p.dist(rect.p); d > EPS {
+	if d := p.dist(rect.P); d > EPS {
 		t.Errorf("Expected p == rect.p")
 	}
-	if d := q.dist(rect.q); d > EPS {
+	if d := q.dist(rect.Q); d > EPS {
 		t.Errorf("Expected q == rect.q")
 	}
 }
@@ -230,8 +230,8 @@ func TestContainmentIntersection(t *testing.T) {
 	s := Point{1.5, 2.7, 3.8}
 
 	actual := intersect(rect1, rect2)
-	d1 := r.dist(actual.p)
-	d2 := s.dist(actual.q)
+	d1 := r.dist(actual.P)
+	d2 := s.dist(actual.Q)
 	if d1 > EPS || d2 > EPS {
 		t.Errorf("intersect(%v, %v) != %v, %v, got %v", rect1, rect2, r, s, actual)
 	}
@@ -250,8 +250,8 @@ func TestOverlapIntersection(t *testing.T) {
 	s := Point{2, 4.5, 3.5}
 
 	actual := intersect(rect1, rect2)
-	d1 := r.dist(actual.p)
-	d2 := s.dist(actual.q)
+	d1 := r.dist(actual.P)
+	d2 := s.dist(actual.Q)
 	if d1 > EPS || d2 > EPS {
 		t.Errorf("intersect(%v, %v) != %v, %v, got %v", rect1, rect2, r, s, actual)
 	}
@@ -264,8 +264,8 @@ func TestToRect(t *testing.T) {
 
 	p := Point{3.65, -2.45, -0.05}
 	q := Point{3.75, -2.35, 0.05}
-	d1 := p.dist(rect.p)
-	d2 := q.dist(rect.q)
+	d1 := p.dist(rect.P)
+	d2 := q.dist(rect.Q)
 	if d1 > EPS || d2 > EPS {
 		t.Errorf("Expected %v.ToRect(%v) == %v, %v, got %v", x, tol, p, q, rect)
 	}
@@ -284,8 +284,8 @@ func TestBoundingBox(t *testing.T) {
 	s := Point{4.7, 12.6, 8.5}
 
 	bb := boundingBox(rect1, rect2)
-	d1 := r.dist(bb.p)
-	d2 := s.dist(bb.q)
+	d1 := r.dist(bb.P)
+	d2 := s.dist(bb.Q)
 	if d1 > EPS || d2 > EPS {
 		t.Errorf("boundingBox(%v, %v) != %v, %v, got %v", rect1, rect2, r, s, bb)
 	}
@@ -301,8 +301,8 @@ func TestBoundingBoxContains(t *testing.T) {
 	rect2, _ := NewRect(q, lengths2)
 
 	bb := boundingBox(rect1, rect2)
-	d1 := rect1.p.dist(bb.p)
-	d2 := rect1.q.dist(bb.q)
+	d1 := rect1.P.dist(bb.P)
+	d2 := rect1.Q.dist(bb.Q)
 	if d1 > EPS || d2 > EPS {
 		t.Errorf("boundingBox(%v, %v) != %v, got %v", rect1, rect2, rect1, bb)
 	}
@@ -315,8 +315,8 @@ func TestBoundingBoxN(t *testing.T) {
 
 	exp, _ := NewRect(Point{0, 0}, []float64{2, 2})
 	bb := boundingBoxN(rect1, rect2, rect3)
-	d1 := bb.p.dist(exp.p)
-	d2 := bb.q.dist(exp.q)
+	d1 := bb.P.dist(exp.P)
+	d2 := bb.Q.dist(exp.Q)
 	if d1 > EPS || d2 > EPS {
 		t.Errorf("boundingBoxN(%v, %v, %v) != %v, got %v", rect1, rect2, rect3, exp, bb)
 	}
