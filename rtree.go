@@ -200,11 +200,12 @@ type Spatial interface {
 	Bounds() *Rect
 }
 
-// SPoint represents geographical point on the globe.
+// SPoint represents geographical point on the globe. Temporarily it has it's
+// own LatLng, but later it's gonna have only pointer to that data.
 type SPoint struct {
 	Latitude  float64
 	Longitude float64
-	Name      string `json:",omitempty"`
+	Offset    int64 // Byte offset of a line to read the real object from.
 }
 
 const sPointRadius = 0.001
@@ -225,13 +226,13 @@ func (p *SPoint) Bounds() *Rect {
 // Equals implement Spatial interface for *SPoint.
 func (p *SPoint) Equals(cmp Comparable) (bool, error) {
 	if that, ok := cmp.(*SPoint); ok {
-		return p.Latitude == that.Latitude && p.Longitude == that.Longitude && p.Name == that.Name, nil
+		return p.Latitude == that.Latitude && p.Longitude == that.Longitude && p.Offset == that.Offset, nil
 	}
 	return false, fmt.Errorf("Wrong type of cmp: trying to compare *SPoint and %T", cmp)
 }
 
 func (p *SPoint) String() string {
-	return fmt.Sprintf("%s, % .2f, % .2f", p.Name, p.Latitude, p.Longitude)
+	return fmt.Sprintf("%+v", *p)
 }
 
 // Insertion

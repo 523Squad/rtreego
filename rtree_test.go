@@ -866,8 +866,8 @@ func TestJSON(t *testing.T) {
 	// 	mustRect(Point{1, 8}, []float64{1, 2}),
 	// }
 	things := []*SPoint {
-		&SPoint{1, 2, "Privet"},
-		&SPoint{2, 3, "Yo"},
+		&SPoint{1, 2},
+		&SPoint{2, 3},
 	}
 	for _, thing := range things {
 		rt.Insert(thing)
